@@ -1,0 +1,135 @@
+{% extends '_base.html' %}
+{% block title %}Edit Profile{% endblock %}
+
+{% block content %}
+<section style="
+    padding:2rem;
+    max-width:600px;
+    margin:auto;
+    background:rgba(255,255,255,0.02);
+    border-radius:var(--radius);
+    box-shadow:0 6px 18px rgba(0,0,0,0.4);
+  ">
+  <!-- Section Heading -->
+  <h2 style="
+      text-align:center;
+      color:var(--accent);
+      font-size:1.8rem;
+      margin-bottom:2rem;
+    ">
+    ✨ Edit Your Account Information
+  </h2>
+
+  <!-- Edit Profile Form -->
+  <form method="post" enctype="multipart/form-data" style="
+      display:flex;
+      flex-direction:column;
+      gap:1.2rem;
+    ">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <!-- Avatar Upload -->
+    <div>
+      <label for="id_avatar" style="font-weight:600; color:var(--accent);">
+        Profile Picture:
+      </label><br>
+      {% if user.avatar %}
+        <img
+          src="{{ user.avatar.url }}"
+          alt="Avatar"
+          style="width:100px; border-radius:10px; margin-bottom:0.5rem;"
+        >
+      {% endif %}
+      {{ form.avatar }}
+    </div>
+
+    <!-- Username Field -->
+    <div>
+      <label for="{{ form.username.id_for_label }}" style="font-weight:600; color:var(--accent);">
+        Username:
+      </label>
+      {{ form.username }}
+      {{ form.username.errors }}
+    </div>
+
+    <!-- First Name Field -->
+    <div>
+      <label for="{{ form.first_name.id_for_label }}" style="font-weight:600; color:var(--accent);">
+        First Name:
+      </label>
+      {{ form.first_name }}
+      {{ form.first_name.errors }}
+    </div>
+
+    <!-- Last Name Field -->
+    <div>
+      <label for="{{ form.last_name.id_for_label }}" style="font-weight:600; color:var(--accent);">
+        Last Name:
+      </label>
+      {{ form.last_name }}
+      {{ form.last_name.errors }}
+    </div>
+
+    <!-- Email Field -->
+    <div>
+      <label for="{{ form.email.id_for_label }}" style="font-weight:600; color:var(--accent);">
+        Email:
+      </label>
+      {{ form.email }}
+      {{ form.email.errors }}
+    </div>
+
+    <!-- Phone Number Field -->
+    <div>
+      <label for="{{ form.phone_number.id_for_label }}" style="font-weight:600; color:var(--accent);">
+        Contact Number:
+      </label>
+      {{ form.phone_number }}
+      {{ form.phone_number.errors }}
+    </div>
+
+    <!-- Age Field -->
+    <div>
+      <label for="{{ form.age.id_for_label }}" style="font-weight:600; color:var(--accent);">
+        Age:
+      </label>
+      {{ form.age }}
+      {{ form.age.errors }}
+    </div>
+
+    <!-- Agent Checkbox -->
+    <div style="display:flex; align-items:center; gap:0.5rem;">
+      {{ form.is_agent }}
+      <label for="{{ form.is_agent.id_for_label }}" style="font-weight:600; color:var(--accent);">
+        Are you an agent?
+      </label>
+      {{ form.is_agent.errors }}
+    </div>
+
+    <!-- Agency Name Field -->
+    <div>
+      <label for="{{ form.agency_name.id_for_label }}" style="font-weight:600; color:var(--accent);">
+        Agency Name:
+      </label>
+      {{ form.agency_name }}
+      {{ form.agency_name.errors }}
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn-gold" style="
+        width:100%;
+        padding:0.75rem;
+        background:var(--accent);
+        color:#000;
+        font-weight:600;
+        border:none;
+        border-radius:2rem;
+        box-shadow:0 4px 20px rgba(255,215,0,0.5);
+        transition:transform .3s;
+      ">
+      Save Changes
+    </button>
+  </form>
+</section>
+{% endblock %}

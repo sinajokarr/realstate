@@ -1,0 +1,48 @@
+{% extends "_base.html" %}
+
+{% block title %}
+  {{ post_detail.title }}
+{% endblock %}
+
+{% block content %}
+  <article class="post-detail">
+    <header style="margin-bottom: 1.5rem;">
+      <h1 style="font-size: 2rem; color: var(--color-accent);">
+        {{ post_detail.title }}
+      </h1>
+      <p style="font-size: 0.9rem; color: #aaa;">
+        نوشته شده توسط 
+        <strong>{{ post_detail.author.username }}</strong> 
+        در تاریخ {{ post_detail.date_created|date:"Y-m-d H:i" }}
+        {% if post_detail.date_modified != post_detail.date_created %}
+          (آخرین ویرایش: {{ post_detail.date_modified|date:"Y-m-d H:i" }})
+        {% endif %}
+      </p>
+    </header>
+
+    <section style="margin-bottom: 2rem; line-height: 1.75;">
+      {{ post_detail.text|linebreaks }}
+    </section>
+
+    {% if user.is_authenticated and user == post_detail.author %}
+      <div style="display: flex; gap: 1rem;">
+        <a href="{% url 'post_update' post_detail.pk %}" 
+           class="btn-primary" 
+           style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+          <i class="fas fa-edit"></i> ویرایش
+        </a>
+        <a href="{% url 'post_delete' post_detail.pk %}" 
+           class="btn-primary" 
+           style="padding: 0.5rem 1rem; font-size: 0.9rem; background: #c00; color: #fff;">
+          <i class="fas fa-trash-alt"></i> حذف
+        </a>
+      </div>
+    {% endif %}
+
+    <div style="margin-top: 3rem;">
+      <a href="{% url 'PostListView' %}" style="color: var(--color-text);">
+        ← بازگشت به لیست پست‌ها
+      </a>
+    </div>
+  </article>
+{% endblock %}

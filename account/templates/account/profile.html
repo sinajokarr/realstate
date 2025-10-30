@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<h1>My Profile</h1>
+
+{% if user.avatar %}
+  <img
+    src="{{ user.avatar.url }}"
+    alt="Avatar"
+    style="width:150px; border-radius:50%;"
+  >
+{% else %}
+  <p>You have not uploaded a profile picture yet.</p>
+{% endif %}
+
+<ul>
+  <li>Username: {{ user.username }}</li>
+  <li>Full Name: {{ user.get_full_name }}</li>
+  <li>Email: {{ user.email }}</li>
+  <li>Contact Number: {{ user.phone_number|default:"-" }}</li>
+  <li>Age: {{ user.age|default:"-" }}</li>
+  <li>Agent: {{ user.is_agent|yesno:"Yes,No" }}</li>
+  {% if user.is_agent %}
+    <li>Agency Name: {{ user.agency_name|default:"No Name" }}</li>
+  {% endif %}
+</ul>
+
+<a href="{% url 'profile_edit' %}" class="btn-gold">Edit Profile</a>
+{% endblock %}

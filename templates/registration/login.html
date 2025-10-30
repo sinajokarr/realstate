@@ -1,0 +1,161 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Login | JokarReal{% endblock %}
+
+{% block content %}
+<!--
+  Login Form Container:
+  Centers the form on the page with a dark, elevated card style.
+-->
+<div class="container" style="max-width:400px; margin:4rem auto;">
+  <form method="post" style="
+      background:#111;
+      padding:2rem;
+      border-radius:0.5rem;
+      box-shadow:0 4px 10px rgba(0,0,0,0.5);
+    ">
+    {% csrf_token %}
+
+    <!--
+      Form Heading:
+      Large, accent-colored title to clearly indicate "Login".
+    -->
+    <h2 style="
+        font-family:var(--font-logo);
+        font-size:2rem;
+        color:var(--accent);
+        text-align:center;
+        margin-bottom:1.5rem;
+      ">
+      Login
+    </h2>
+
+    <!--
+      Display non-field form errors (e.g., invalid credentials) in red text
+      centered above the input fields.
+    -->
+    {% if form.non_field_errors %}
+      <div style="color:#e74c3c; text-align:center; margin-bottom:1rem;">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+
+    <!-- ─── Username Field ────────────────────────────────────────────────── -->
+    <div style="margin-bottom:1.5rem;">
+      <label for="id_username" style="
+          color:var(--accent);
+          font-weight:600;
+        ">
+        Username
+      </label>
+      <div style="position:relative; margin-top:0.5rem;">
+        <!-- Icon inside the input container -->
+        <i class="fas fa-user"
+           style="
+             position:absolute;
+             top:50%;
+             transform:translateY(-50%);
+             left:10px;
+             color:var(--accent);
+           "></i>
+        <input
+          type="text"
+          name="username"
+          id="id_username"
+          placeholder="Username"
+          class="pl-10 form-input"
+          style="
+            width:100%;
+            padding:0.75rem;
+            padding-left:2.5rem;
+            border:none;
+            border-radius:0.25rem;
+            background:#222;
+            color:#f0f0f0;
+          "
+          value="{{ form.username.value|default:'' }}"
+          required
+        >
+      </div>
+      <!-- Show field-specific errors in red below the input -->
+      {% if form.username.errors %}
+        <div style="color:#e74c3c; font-size:0.9rem; margin-top:0.5rem;">
+          {{ form.username.errors|striptags }}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- ─── Password Field ────────────────────────────────────────────────── -->
+    <div style="margin-bottom:1.5rem;">
+      <label for="id_password" style="
+          color:var(--accent);
+          font-weight:600;
+        ">
+        Password
+      </label>
+      <div style="position:relative; margin-top:0.5rem;">
+        <!-- Lock icon inside the password input -->
+        <i class="fas fa-lock"
+           style="
+             position:absolute;
+             top:50%;
+             transform:translateY(-50%);
+             left:10px;
+             color:var(--accent);
+           "></i>
+        <input
+          type="password"
+          name="password"
+          id="id_password"
+          placeholder="Password"
+          class="pl-10 form-input"
+          style="
+            width:100%;
+            padding:0.75rem;
+            padding-left:2.5rem;
+            border:none;
+            border-radius:0.25rem;
+            background:#222;
+            color:#f0f0f0;
+          "
+          required
+        >
+      </div>
+      <!-- Show password-specific errors in red below the input -->
+      {% if form.password.errors %}
+        <div style="color:#e74c3c; font-size:0.9rem; margin-top:0.5rem;">
+          {{ form.password.errors|striptags }}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- ─── Submit Button ─────────────────────────────────────────────────── -->
+    <button
+      type="submit"
+      class="auth-btn"
+      style="
+        width:100%;
+        padding:0.75rem;
+        background:var(--accent);
+        color:#000;
+        font-weight:600;
+        border:none;
+        border-radius:2rem;
+        box-shadow:0 4px 20px rgba(255,215,0,0.5);
+        transition:transform .3s;
+      "
+    >
+      Login
+    </button>
+
+    <!-- ─── Sign-up Link (Below Button) ─────────────────────────────────── -->
+    <p style="text-align:center; color:#777; margin-top:1rem;">
+      Don't have an account?
+      <a href="{% url 'signup' %}" style="color:var(--accent);">
+        Sign Up
+      </a>
+    </p>
+  </form>
+</div>
+{% endblock %}

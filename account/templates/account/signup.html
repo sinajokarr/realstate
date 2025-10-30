@@ -1,0 +1,237 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}Sign Up | JokarReal{% endblock %}
+
+{% block content %}
+<div class="container" style="
+    max-width: 500px;
+    margin: 5rem auto;
+  ">
+  <form
+    method="post"
+    enctype="multipart/form-data"
+    novalidate
+    style="
+      background: #111;
+      padding: 2.5rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    "
+  >
+    {% csrf_token %}
+
+    <!-- Form Heading -->
+    <h2 style="
+        font-family: var(--font-main);
+        font-size: 2.25rem;
+        color: var(--color-accent);
+        text-align: center;
+        margin-bottom: 2rem;
+        letter-spacing: 0.05em;
+      ">
+      Create Your Account
+    </h2>
+
+    <!-- Username Field -->
+    <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <label
+        for="{{ form.username.id_for_label }}"
+        style="
+          color: var(--color-accent);
+          font-weight: 600;
+          font-size: 0.95rem;
+        "
+      >
+        Username
+      </label>
+      {{ form.username }}
+      {{ form.username.errors }}
+    </div>
+
+    <!-- Email Field -->
+    <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <label
+        for="{{ form.email.id_for_label }}"
+        style="
+          color: var(--color-accent);
+          font-weight: 600;
+          font-size: 0.95rem;
+        "
+      >
+        Email Address
+      </label>
+      {{ form.email }}
+      {{ form.email.errors }}
+    </div>
+
+    <!-- Age Field -->
+    <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <label
+        for="{{ form.age.id_for_label }}"
+        style="
+          color: var(--color-accent);
+          font-weight: 600;
+          font-size: 0.95rem;
+        "
+      >
+        Age
+      </label>
+      {{ form.age }}
+      {{ form.age.errors }}
+    </div>
+
+    <!-- Agent Checkbox -->
+    <div style="
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      ">
+      {{ form.is_agent }}
+      <label
+        for="{{ form.is_agent.id_for_label }}"
+        style="
+          color: var(--color-accent);
+          font-weight: 600;
+          font-size: 0.95rem;
+        "
+      >
+        Are you an agent?
+      </label>
+      {{ form.is_agent.errors }}
+    </div>
+
+    <!-- Agency Name Field (only if agent) -->
+    <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <label
+        for="{{ form.agency_name.id_for_label }}"
+        style="
+          color: var(--color-accent);
+          font-weight: 600;
+          font-size: 0.95rem;
+        "
+      >
+        Agency Name
+      </label>
+      {{ form.agency_name }}
+      {{ form.agency_name.errors }}
+    </div>
+
+    <!-- Phone Number Field -->
+    <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <label
+        for="{{ form.phone_number.id_for_label }}"
+        style="
+          color: var(--color-accent);
+          font-weight: 600;
+          font-size: 0.95rem;
+        "
+      >
+        Phone Number
+      </label>
+      {{ form.phone_number }}
+      {{ form.phone_number.errors }}
+    </div>
+
+    <!-- Avatar Upload Field -->
+    <div style="position: relative; display: flex; flex-direction: column; gap: 0.3rem;">
+      <label
+        for="id_avatar"
+        style="
+          color: var(--color-accent);
+          font-weight: 600;
+          font-size: 0.95rem;
+          margin-bottom: 0.3rem;
+        "
+      >
+        Profile Picture (Optional)
+      </label>
+      <i
+        class="fas fa-camera"
+        style="
+          position: absolute;
+          top: 38px;
+          left: 12px;
+          color: var(--color-accent);
+          font-size: 1rem;
+        "
+      ></i>
+      {{ form.avatar }}
+      {{ form.avatar.errors }}
+    </div>
+
+    <!-- Password Field -->
+    <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <label
+        for="{{ form.password1.id_for_label }}"
+        style="
+          color: var(--color-accent);
+          font-weight: 600;
+          font-size: 0.95rem;
+        "
+      >
+        Password
+      </label>
+      {{ form.password1 }}
+      {{ form.password1.errors }}
+    </div>
+
+    <!-- Confirm Password Field -->
+    <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+      <label
+        for="{{ form.password2.id_for_label }}"
+        style="
+          color: var(--color-accent);
+          font-weight: 600;
+          font-size: 0.95rem;
+        "
+      >
+        Confirm Password
+      </label>
+      {{ form.password2 }}
+      {{ form.password2.errors }}
+    </div>
+
+    <!-- Submit Button -->
+    <button
+      type="submit"
+      class="auth-btn"
+      style="
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        border-radius: 2rem;
+        background: var(--color-accent);
+        color: #000;
+        font-weight: 600;
+        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.5);
+        transition: transform 0.3s ease;
+        margin-top: 1rem;
+      "
+      onmouseover="this.style.transform='translateY(-2px)';"
+      onmouseout="this.style.transform='translateY(0)';"
+    >
+      Sign Up
+    </button>
+
+    <!-- Login Link -->
+    <p style="
+        text-align: center;
+        color: #777;
+        margin-top: 1.2rem;
+        font-size: 0.9rem;
+      ">
+      Already have an account?
+      <a href="{% url 'login' %}" style="
+          color: var(--color-accent);
+          font-weight: 600;
+        ">
+        Login
+      </a>
+    </p>
+  </form>
+</div>
+{% endblock %}

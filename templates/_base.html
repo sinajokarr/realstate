@@ -1,0 +1,304 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}JokarHolding{% endblock %}</title>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Base Styles (Inline to avoid extra files) -->
+  <style>
+    /* ─── Variables ───────────────────────────────────────────────────────── */
+    :root {
+      --font-main: 'Montserrat', sans-serif;
+      --color-bg: #0d0d0d;
+      --color-text: #e5e5e5;
+      --color-accent: #ffd700;
+      --color-accent-dark: #c5a200;
+      --color-nav-bg: rgba(0, 0, 0, 0.85);
+      --radius: 0.5rem;
+      --transition: 0.3s ease;
+      --header-height: 4rem;
+    }
+
+    /* ─── Reset ─────────────────────────────────────────────────────────────── */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-main);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--color-text);
+      transition: color var(--transition);
+    }
+    a:hover {
+      color: var(--color-accent);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button {
+      cursor: pointer;
+      font-family: var(--font-main);
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ─── Header ────────────────────────────────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: var(--color-nav-bg);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    .logo {
+      font-size: 1.75rem;
+      font-weight: 700;
+      background: linear-gradient(
+        90deg,
+        var(--color-accent),
+        var(--color-accent-dark)
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ─── Navigation ───────────────────────────────────────────────────────── */
+    .nav-container {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      position: relative;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius);
+      transition: background var(--transition), color var(--transition);
+    }
+    nav a:hover {
+      background: rgba(255, 215, 0, 0.1);
+      color: var(--color-accent);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--color-accent);
+      color: #000;
+      border-radius: var(--radius);
+      font-weight: 600;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    /* ─── Toggle Menu (Mobile) ──────────────────────────────────────────────── */
+    .menu-toggle {
+      display: none;
+      border: none;
+      background: none;
+      font-size: 1.5rem;
+      color: var(--color-text);
+    }
+
+    /* ─── Main Content ──────────────────────────────────────────────────────── */
+    main {
+      margin-top: var(--header-height);
+      flex: 1;
+      padding: 2rem;
+      max-width: 1200px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────────────────── */
+    footer {
+      padding: 1.5rem 1rem;
+      background: var(--color-nav-bg);
+      text-align: center;
+      font-size: 0.9rem;
+      border-top: 1px solid #222;
+    }
+    footer p {
+      color: #888;
+      margin: 0.25rem 0;
+    }
+    footer a {
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+    footer a:hover {
+      color: var(--color-accent-dark);
+    }
+
+    /* ─── Responsive ───────────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      header {
+        padding: 0 1rem;
+      }
+      .nav-container {
+        display: none;
+        position: absolute;
+        top: var(--header-height);
+        right: 0;
+        background: var(--color-nav-bg);
+        flex-direction: column;
+        width: 100%;
+        padding: 1rem 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      }
+      .nav-container.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      main {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header & Navigation -->
+  <header>
+    <!-- Logo on the right (RTL) -->
+    <div class="logo">JokarHolding</div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="menu-toggle" aria-label="Show menu">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Navigation Links -->
+    <div class="nav-container" id="navContainer">
+      <nav>
+        <a href="{% url 'home' %}">
+          <i class="fas fa-home"></i>
+          Home
+        </a>
+        <a href="{% url 'PostListView' %}">
+          <i class="fas fa-building"></i>
+          Properties
+        </a>
+
+        {% if user.is_authenticated %}
+          <a href="{% url 'Post_create' %}" class="btn-primary">
+            <i class="fas fa-plus"></i>
+            New Listing
+          </a>
+          <a href="{% url 'profile_edit' %}" class="btn-primary">
+            <i class="fas fa-user-edit"></i>
+            Edit Profile
+          </a>
+          <form method="post" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn-primary">
+              <i class="fas fa-sign-out-alt"></i>
+              Logout
+            </button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn-primary">
+            <i class="fas fa-sign-in-alt"></i>
+            Login
+          </a>
+          <a href="{% url 'signup' %}" class="btn-primary">
+            <i class="fas fa-user-plus"></i>
+            Sign Up
+          </a>
+        {% endif %}
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    {% block content %}
+    <!-- Page-specific content is rendered here -->
+    {% endblock %}
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>© {% now "Y" %} JokarHolding. All rights reserved.</p>
+    <p>
+      <a href="mailto:info@jokarholding.com">info@jokarholding.com</a>
+    </p>
+  </footer>
+
+  <!-- JavaScript for Toggle Menu -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleBtn = document.querySelector('.menu-toggle');
+      const navContainer = document.getElementById('navContainer');
+
+      toggleBtn.addEventListener('click', () => {
+        navContainer.classList.toggle('show');
+      });
+    });
+  </script>
+</body>
+</html>

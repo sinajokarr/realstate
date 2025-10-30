@@ -1,0 +1,440 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}
+Home | JokarHolding
+{% endblock %}
+
+{% block content %}
+
+  <!-- ─── Hero Section ─────────────────────────────────────────────────── -->
+  <section
+    style="
+      position: relative;
+      width: 100%;
+      min-height: 80vh;
+      background: url('{% static 'images/hero-background.jpg' %}') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      padding: 0;
+      margin: 0;
+    "
+  >
+    <!-- Dark Overlay -->
+    <div
+      style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+      "
+    ></div>
+
+    <!-- Hero Content -->
+    <div
+      style="
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        max-width: 800px;
+        padding: 40px;
+      "
+    >
+      <h1 style="font-size: 2.5rem; line-height: 1.2; margin-bottom: 20px;">
+        Discover the Future of Real Estate with
+        <span style="color: #ffcc00;">JokarHolding</span>
+      </h1>
+      <p style="font-size: 1.125rem; line-height: 1.5; margin-bottom: 30px; opacity: 0.9;">
+        Luxury properties, smart investments, and world-class experiences —
+        all in one platform. Join a new era of real estate today.
+      </p>
+
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <a
+          href="{% url 'PostListView' %}"
+          style="
+            background-color: #ffcc00;
+            color: #111111;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+          "
+        >
+          <i class="fas fa-gem" style="font-size: 1.125rem;"></i>
+          Explore Premium Listings
+        </a>
+
+        {% if not user.is_authenticated %}
+          <a
+            href="{% url 'signup' %}"
+            style="
+              background-color: transparent;
+              border: 2px solid #ffcc00;
+              color: #ffcc00;
+              font-weight: 600;
+              padding: 12px 24px;
+              border-radius: 8px;
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              transition: background-color 0.2s ease, color 0.2s ease;
+            "
+            onmouseover="this.style.backgroundColor='#ffcc00'; this.style.color='#111111';"
+            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#ffcc00';"
+          >
+            <i class="fas fa-user-plus" style="font-size: 1.125rem;"></i>
+            Create Your Free Account
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── Why Choose Us Section ─────────────────────────────────────────── -->
+  <section
+    id="why-us"
+    style="
+      background-color: #f5f5f5;
+      padding: 60px 20px;
+      margin-top: 0;
+    "
+  >
+    <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+      <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 40px; color: #111111;">
+        Why Choose <span style="color: #ffcc00;">JokarHolding</span>?
+      </h2>
+
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+          justify-content: center;
+        "
+      >
+        <!-- Card 1 -->
+        <div
+          style="
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 240px;
+            max-width: 280px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+          "
+          onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)';"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';"
+        >
+          <i class="fas fa-layer-group" style="font-size: 2rem; margin-bottom: 16px; color: #ffcc00;"></i>
+          <h3 style="font-size: 1.125rem; margin-bottom: 8px; color: #111111;">Curated Listings</h3>
+          <p style="font-size: 0.95rem; line-height: 1.4; color: #333333;">
+            Handpicked properties from verified agencies with advanced filtering
+            by budget, size, and location.
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div
+          style="
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 240px;
+            max-width: 280px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+          "
+          onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)';"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';"
+        >
+          <i class="fas fa-analytics" style="font-size: 2rem; margin-bottom: 16px; color: #ffcc00;"></i>
+          <h3 style="font-size: 1.125rem; margin-bottom: 8px; color: #111111;">Smart Investment Tools</h3>
+          <p style="font-size: 0.95rem; line-height: 1.4; color: #333333;">
+            Data-driven analytics and real-time market trends to help you make
+            confident investment decisions.
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div
+          style="
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 240px;
+            max-width: 280px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+          "
+          onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)';"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';"
+        >
+          <i class="fas fa-lock" style="font-size: 2rem; margin-bottom: 16px; color: #ffcc00;"></i>
+          <h3 style="font-size: 1.125rem; margin-bottom: 8px; color: #111111;">Security & Transparency</h3>
+          <p style="font-size: 0.95rem; line-height: 1.4; color: #333333;">
+            Work only with trusted agencies. All listings undergo verification
+            and legal review for peace of mind.
+          </p>
+        </div>
+
+        <!-- Card 4 -->
+        <div
+          style="
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 240px;
+            max-width: 280px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+          "
+          onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)';"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';"
+        >
+          <i class="fas fa-headset" style="font-size: 2rem; margin-bottom: 16px; color: #ffcc00;"></i>
+          <h3 style="font-size: 1.125rem; margin-bottom: 8px; color: #111111;">24/7 Human Support</h3>
+          <p style="font-size: 0.95rem; line-height: 1.4; color: #333333;">
+            Our expert support team is always ready to help you schedule visits,
+            answer questions, or guide you.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── User Benefits (Call to Action) Section ───────────────────────── -->
+  {% if not user.is_authenticated %}
+    <section
+      style="
+        background-color: #111111;
+        padding: 60px 20px;
+        color: #ffffff;
+      "
+    >
+      <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 30px;">
+          Become a Member and Unlock the Full Experience
+        </h2>
+
+        <ul style="list-style: none; margin-bottom: 40px; padding: 0;">
+          <li style="font-size: 1rem; margin: 8px 0; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: #ffcc00;">•</span>
+            Save your favorite properties and receive instant alerts
+          </li>
+          <li style="font-size: 1rem; margin: 8px 0; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: #ffcc00;">•</span>
+            Post your own listings and manage your profile with ease
+          </li>
+          <li style="font-size: 1rem; margin: 8px 0; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: #ffcc00;">•</span>
+            Access exclusive investment insights and member-only content
+          </li>
+        </ul>
+
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a
+            href="{% url 'signup' %}"
+            style="
+              background-color: #ffcc00;
+              color: #111111;
+              font-weight: 600;
+              padding: 14px 28px;
+              border-radius: 8px;
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 1rem;
+            "
+          >
+            <i class="fas fa-user-plus" style="font-size: 1.125rem;"></i>
+            Sign Up Now
+          </a>
+
+          <span style="align-self: center; font-size: 1rem; font-weight: 600;">or</span>
+
+          <a
+            href="{% url 'login' %}"
+            style="
+              background-color: transparent;
+              border: 2px solid #ffcc00;
+              color: #ffcc00;
+              font-weight: 600;
+              padding: 14px 28px;
+              border-radius: 8px;
+              display: inline-flex;
+              align-items: center;
+              gap: 8px;
+              font-size: 1rem;
+              transition: background-color 0.2s ease, color 0.2s ease;
+            "
+            onmouseover="this.style.backgroundColor='#ffcc00'; this.style.color='#111111';"
+            onmouseout="this.style.backgroundColor='transparent'; this.style.color='#ffcc00';"
+          >
+            <i class="fas fa-sign-in-alt" style="font-size: 1.125rem;"></i>
+            Log In
+          </a>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+
+  <!-- ─── Testimonials Section ─────────────────────────────────────────── -->
+  <section
+    id="testimonials"
+    style="
+      background-color: #f5f5f5;
+      padding: 60px 20px;
+      margin-top: 0;
+    "
+  >
+    <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+      <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 40px; color: #111111;">
+        What Our Users Say
+      </h2>
+
+      <div
+        style="
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+          justify-content: center;
+        "
+      >
+        <!-- Testimonial 1 -->
+        <div
+          style="
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 280px;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+          "
+          onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 6px 18px rgba(0,0,0,0.15)';"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';"
+        >
+          <p style="font-size: 1rem; font-style: italic; color: #333333; flex-grow: 1;">
+            "JokarHolding helped me find my perfect home within days. The process
+            was seamless and the team was amazing!"
+          </p>
+          <p style="font-size: 0.95rem; font-weight: 600; color: #111111; text-align: right; margin-top: 8px;">
+            <strong>Alex R.</strong>, London
+          </p>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div
+          style="
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 280px;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+          "
+          onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 6px 18px rgba(0,0,0,0.15)';"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';"
+        >
+          <p style="font-size: 1rem; font-style: italic; color: #333333; flex-grow: 1;">
+            "As an investor, I love the tools and insights. It’s unlike anything
+            else in the market."
+          </p>
+          <p style="font-size: 0.95rem; font-weight: 600; color: #111111; text-align: right; margin-top: 8px;">
+            <strong>Maria T.</strong>, Berlin
+          </p>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div
+          style="
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            flex: 1 1 280px;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+          "
+          onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 6px 18px rgba(0,0,0,0.15)';"
+          onmouseout="this.style.transform='none'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)';"
+        >
+          <p style="font-size: 1rem; font-style: italic; color: #333333; flex-grow: 1;">
+            "From listing my property to finding clients, everything was fast,
+            modern, and easy to use."
+          </p>
+          <p style="font-size: 0.95rem; font-weight: 600; color: #111111; text-align: right; margin-top: 8px;">
+            <strong>David N.</strong>, Dubai
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── Final Call to Action Section ──────────────────────────────────── -->
+  <section
+    id="trust"
+    style="
+      background-color: #111111;
+      padding: 60px 20px;
+      color: #ffffff;
+      text-align: center;
+      margin-top: 0;
+    "
+  >
+    <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 20px;">
+      Experience Property Like Never Before
+    </h2>
+    <p style="font-size: 1rem; line-height: 1.6; max-width: 800px; margin: 0 auto 30px; color: #dddddd;">
+      At JokarHolding, we redefine the real estate journey —
+      combining modern technology, human expertise, and unparalleled service.
+      Join us and be part of a smarter, safer, and more exciting property world.
+    </p>
+
+    <a
+      href="{% url 'PostListView' %}"
+      style="
+        background-color: #ffcc00;
+        color: #111111;
+        font-weight: 600;
+        padding: 14px 28px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 1rem;
+      "
+    >
+      <i class="fas fa-search-location" style="font-size: 1.125rem;"></i>
+      Start Exploring
+    </a>
+  </section>
+
+{% endblock %}
