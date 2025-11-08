@@ -1,0 +1,98 @@
+```html
+{% extends "_base.html" %}
+
+{% block title %}
+  {{ post_detail.title }}
+{% endblock %}
+
+{% block content %}
+<style>
+  .post-shell {
+    background: rgba(0,0,0,.25);
+    border: 1px solid rgba(212,175,55,.12);
+    border-radius: 1rem;
+    padding: 2rem 1.6rem 1.8rem;
+    max-width: 820px;
+    margin: 0 auto;
+    backdrop-filter: blur(4px);
+  }
+  .post-meta {
+    font-size: .78rem;
+    color: rgba(245,245,245,.55);
+    margin-top: .3rem;
+  }
+  .post-body {
+    margin-top: 1.5rem;
+    line-height: 1.7;
+    color: rgba(245,245,245,.9);
+  }
+  .post-actions {
+    display: flex;
+    gap: .7rem;
+    margin-top: 1.6rem;
+  }
+  .btn-primary {
+    background: #d4af37;
+    color: #000;
+    padding: .45rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: .78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+  }
+  .btn-danger {
+    background: #c62828;
+    color: #fff !important;
+    padding: .45rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: .78rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 2.3rem;
+    font-size: .75rem;
+    color: rgba(245,245,245,.65);
+  }
+</style>
+
+<article class="post-shell">
+  <header>
+    <h1 style="font-size:1.6rem; color:#fff; margin-bottom:.25rem;">
+      {{ post_detail.title }}
+    </h1>
+    <p class="post-meta">
+      by <strong>{{ post_detail.author.username }}</strong>
+      on {{ post_detail.date_created|date:"Y-m-d H:i" }}
+      {% if post_detail.date_modified != post_detail.date_created %}
+        (last edited: {{ post_detail.date_modified|date:"Y-m-d H:i" }})
+      {% endif %}
+    </p>
+  </header>
+
+  <section class="post-body">
+    {{ post_detail.text|linebreaks }}
+  </section>
+
+  {% if user.is_authenticated and user == post_detail.author %}
+    <div class="post-actions">
+      <a href="{% url 'post_update' post_detail.pk %}" class="btn-primary">
+        <i class="fas fa-edit"></i> Edit
+      </a>
+      <a href="{% url 'post_delete' post_detail.pk %}" class="btn-danger">
+        <i class="fas fa-trash-alt"></i> Delete
+      </a>
+    </div>
+  {% endif %}
+
+  <a href="{% url 'PostListView' %}" class="back-link">
+    ← Back to posts
+  </a>
+</article>
+{% endblock %}
+```

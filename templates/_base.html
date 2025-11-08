@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+<title>{% block title %}JokarHolding | Luxury Real Estate{% endblock %}</title>
+<style>
+  :root{--gold:#d4af37;--text:#f5f5f5;--max:1200px;--trans:.25s ease}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:radial-gradient(circle at top,#151515 0%,#000 55%,#000 100%);color:var(--text);font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;display:flex;flex-direction:column}
+  a{text-decoration:none;color:inherit}
+  .wrapper{max-width:var(--max);margin:0 auto;padding:0 1.25rem}
+  header{position:sticky;top:0;z-index:999;background:rgba(0,0,0,.55);backdrop-filter:blur(12px);border-bottom:1px solid rgba(212,175,55,.22)}
+  .nav{height:70px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+  .logo{font-size:1.35rem;font-weight:700;letter-spacing:.2rem;text-transform:uppercase;background:linear-gradient(90deg,#fff 0%,var(--gold) 50%,#fff 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;white-space:nowrap}
+  .nav-left,.nav-right{display:flex;gap:1rem;align-items:center}
+  .nav-link{font-size:.85rem;position:relative;padding-bottom:.3rem}
+  .nav-link::after{content:"";position:absolute;left:0;bottom:-.55rem;width:0;height:2px;background:var(--gold);transition:width var(--trans)}
+  .nav-link:hover::after{width:100%}
+  .btn-gold{background:var(--gold);color:#000;padding:.45rem 1.05rem;border-radius:999px;font-weight:600;font-size:.78rem;display:inline-flex;gap:.35rem;align-items:center;transition:transform var(--trans),box-shadow var(--trans);border:0;cursor:pointer}
+  .btn-gold:hover{transform:translateY(-1px);box-shadow:0 12px 25px rgba(212,175,55,.35)}
+  .badge-admin{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.35);padding:.35rem .75rem;border-radius:.6rem;font-size:.68rem;color:var(--gold);display:inline-flex;gap:.3rem;align-items:center}
+  .nav-right form{display:inline-flex}
+  .nav-right form .nav-link{background:transparent;border:0;color:inherit;padding:0 0 .3rem 0;font:inherit;cursor:pointer}
+  main{flex:1;padding:2.5rem 0}
+  footer{background:#000;border-top:1px solid rgba(212,175,55,.12);text-align:center;padding:1.4rem 0;font-size:.72rem;color:#666;margin-top:auto}
+  .menu-btn{display:none;background:none;border:0;color:#fff;font-size:1.3rem;cursor:pointer}
+  .mobile-menu{display:none}
+  @media(max-width:880px){
+    .nav-left,.nav-right{display:none}
+    .menu-btn{display:block}
+    .mobile-menu{position:absolute;top:70px;left:0;right:0;background:rgba(0,0,0,.95);backdrop-filter:blur(8px);padding:1rem 1.25rem 1.25rem;border-bottom:1px solid rgba(212,175,55,.15);display:none}
+    .mobile-menu.show{display:block}
+    .mobile-menu a,.mobile-menu form{display:block;margin-bottom:.6rem}
+    .mobile-menu .btn-gold,.mobile-menu form button{width:fit-content}
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/js/all.min.js" defer></script>
+</head><body>
+<header>
+  <div class="wrapper nav">
+    <div class="logo">JOKARHOLDING</div>
+    <div class="nav-left">
+      <a href="{% url 'home' %}" class="nav-link">Home</a>
+      <a href="{% url 'PostListView' %}" class="nav-link">Listings</a>
+      {% if user.is_authenticated %}<a href="{% url 'profile' %}" class="nav-link">My Profile</a>{% endif %}
+    </div>
+    <div class="nav-right">
+      {% if user.is_authenticated %}
+        <a href="{% url 'Post_create' %}" class="btn-gold"><i class="fas fa-plus"></i> New Listing</a>
+        <a href="{% url 'profile_edit' %}" class="nav-link">Edit Profile</a>
+        {% if user.is_staff %}<a href="{% url 'admin:index' %}" class="badge-admin"><i class="fas fa-shield-alt"></i> Admin</a>{% endif %}
+        <form action="{% url 'logout' %}" method="post">{% csrf_token %}<button type="submit" class="nav-link">Logout</button></form>
+      {% else %}
+        <a href="{% url 'login' %}" class="nav-link">Login</a>
+        <a href="{% url 'signup' %}" class="btn-gold"><i class="fas fa-user-plus"></i> Sign Up</a>
+      {% endif %}
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+  </div>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'PostListView' %}">Listings</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'profile' %}">My Profile</a>
+      <a href="{% url 'profile_edit' %}">Edit Profile</a>
+      <a href="{% url 'Post_create' %}">New Listing</a>
+      {% if user.is_staff %}<a href="{% url 'admin:index' %}">Admin</a>{% endif %}
+      <form action="{% url 'logout' %}" method="post">{% csrf_token %}<button type="submit" class="btn-gold">Logout</button></form>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'signup' %}" class="btn-gold">Sign Up</a>
+    {% endif %}
+  </div>
+</header>
+
+<main class="wrapper">{% block content %}{% endblock %}</main>
+<footer>© {% now "Y" %} JokarHolding. All rights reserved.</footer>
+
+<script>
+  document.addEventListener("DOMContentLoaded",function(){
+    const btn=document.getElementById("menuBtn");
+    const menu=document.getElementById("mobileMenu");
+    if(btn&&menu){btn.addEventListener("click",()=>menu.classList.toggle("show"))}
+  });
+</script>
+</body></html>

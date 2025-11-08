@@ -1,0 +1,155 @@
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Sign Up | JokarReal{% endblock %}
+
+{% block content %}
+<style>
+  .auth-shell {
+    max-width: 520px;
+    margin: 3rem auto;
+    background: rgba(0,0,0,.35);
+    border: 1px solid rgba(212,175,55,.12);
+    border-radius: 1rem;
+    padding: 2.3rem 1.8rem 2rem;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 14px 30px rgba(0,0,0,.35);
+  }
+  .auth-title {
+    text-align: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.4rem;
+  }
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    margin-bottom: 1rem;
+  }
+  .field-group label {
+    font-size: .78rem;
+    font-weight: 600;
+    color: #f5f5f5;
+  }
+  .auth-input,
+  .auth-file,
+  .auth-checkbox {
+    background: rgba(0,0,0,.35);
+    border: 1px solid rgba(212,175,55,.12);
+    border-radius: .55rem;
+    padding: .55rem .6rem;
+    font-size: .8rem;
+    color: #fff;
+  }
+  .auth-input:focus,
+  .auth-file:focus {
+    outline: none;
+    border: 1px solid rgba(212,175,55,.55);
+    box-shadow: 0 0 0 3px rgba(212,175,55,.08);
+  }
+  .inline-check {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .errorlist {
+    list-style: none;
+    color: #ff8080;
+    font-size: .7rem;
+  }
+  .auth-btn {
+    width: 100%;
+    background: #d4af37;
+    color: #000;
+    border: none;
+    border-radius: 999px;
+    padding: .65rem 1rem;
+    font-weight: 600;
+    margin-top: .5rem;
+    transition: .2s ease;
+  }
+  .auth-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(212,175,55,.4);
+  }
+  .auth-footer {
+    text-align: center;
+    font-size: .75rem;
+    margin-top: 1.1rem;
+    color: rgba(245,245,245,.5);
+  }
+  .auth-footer a {
+    color: #d4af37;
+    font-weight: 500;
+  }
+</style>
+
+<div class="auth-shell">
+  <h1 class="auth-title">Create your account</h1>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+
+    <div class="field-group">
+      <label for="{{ form.username.id_for_label }}">Username</label>
+      {{ form.username }}
+      {{ form.username.errors }}
+    </div>
+
+    <div class="field-group">
+      <label for="{{ form.email.id_for_label }}">Email address</label>
+      {{ form.email }}
+      {{ form.email.errors }}
+    </div>
+
+    <div class="field-group">
+      <label for="{{ form.age.id_for_label }}">Age</label>
+      {{ form.age }}
+      {{ form.age.errors }}
+    </div>
+
+    <div class="field-group inline-check">
+      {{ form.is_agent }}
+      <label for="{{ form.is_agent.id_for_label }}">Are you an agent?</label>
+      {{ form.is_agent.errors }}
+    </div>
+
+    <div class="field-group">
+      <label for="{{ form.agency_name.id_for_label }}">Agency name</label>
+      {{ form.agency_name }}
+      {{ form.agency_name.errors }}
+    </div>
+
+    <div class="field-group">
+      <label for="{{ form.phone_number.id_for_label }}">Phone number</label>
+      {{ form.phone_number }}
+      {{ form.phone_number.errors }}
+    </div>
+
+    <div class="field-group">
+      <label for="{{ form.avatar.id_for_label }}">Profile picture (optional)</label>
+      {{ form.avatar }}
+      {{ form.avatar.errors }}
+    </div>
+
+    <div class="field-group">
+      <label for="{{ form.password1.id_for_label }}">Password</label>
+      {{ form.password1 }}
+      {{ form.password1.errors }}
+    </div>
+
+    <div class="field-group">
+      <label for="{{ form.password2.id_for_label }}">Confirm password</label>
+      {{ form.password2 }}
+      {{ form.password2.errors }}
+    </div>
+
+    <button type="submit" class="auth-btn">Sign Up</button>
+
+    <p class="auth-footer">
+      Already have an account?
+      <a href="{% url 'login' %}">Login</a>
+    </p>
+  </form>
+</div>
+{% endblock %}

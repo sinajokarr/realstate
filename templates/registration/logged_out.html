@@ -1,0 +1,20 @@
+{% extends "_base.html" %}
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+  <div style="max-width:520px;margin:4rem auto;text-align:center;">
+    <h1 style="font-size:2rem;margin-bottom:1rem;">You are logged out</h1>
+    <p style="color:#bbb;margin-bottom:2rem;">
+      Your session has ended. You can go back to the homepage or log in again.
+    </p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="{% url 'home' %}" class="btn-gold" style="padding:.6rem 1.4rem;border-radius:999px;">
+        Back to Home
+      </a>
+      <a href="{% url 'login' %}" class="nav-link" style="padding:.6rem 1.4rem;border:1px solid rgba(212,175,55,.4);border-radius:999px;">
+        Login again
+      </a>
+    </div>
+  </div>
+{% endblock %}

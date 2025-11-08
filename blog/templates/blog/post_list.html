@@ -1,0 +1,130 @@
+```html
+{% extends "_base.html" %}
+{% load static %}
+
+{% block title %}Posts | JokarRealestate{% endblock %}
+
+{% block content %}
+<style>
+  .posts-hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+  .posts-hero h1 {
+    font-size: 2.1rem;
+    margin-bottom: .6rem;
+  }
+  .posts-hero p {
+    color: rgba(245,245,245,.6);
+    max-width: 580px;
+    margin: 0 auto 1.4rem;
+  }
+  .posts-hero .btn-add {
+    background: #d4af37;
+    color: #000;
+    padding: .55rem 1.35rem;
+    border-radius: 999px;
+    font-weight: 600;
+    display: inline-flex;
+    gap: .4rem;
+    align-items: center;
+    transition: .25s ease;
+  }
+  .posts-hero .btn-add:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 25px rgba(212,175,55,.35);
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+  }
+  .post-card {
+    background: rgba(0,0,0,.25);
+    border: 1px solid rgba(212,175,55,.08);
+    border-radius: 1rem;
+    padding: 1.1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .65rem;
+    transition: border .2s ease, transform .2s ease;
+  }
+  .post-card:hover {
+    border: 1px solid rgba(212,175,55,.35);
+    transform: translateY(-2px);
+  }
+  .post-title {
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+  .post-meta {
+    font-size: .65rem;
+    color: rgba(245,245,245,.45);
+  }
+  .post-excerpt {
+    font-size: .78rem;
+    color: rgba(245,245,245,.7);
+    line-height: 1.5;
+    flex: 1;
+  }
+  .post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: .6rem;
+  }
+  .btn-read {
+    background: transparent;
+    border: 1px solid rgba(212,175,55,.4);
+    border-radius: 999px;
+    padding: .35rem .8rem;
+    font-size: .7rem;
+    color: #f5f5f5;
+    transition: background .2s ease;
+  }
+  .btn-read:hover {
+    background: rgba(212,175,55,.15);
+  }
+  .empty-state {
+    text-align: center;
+    color: rgba(245,245,245,.55);
+    grid-column: 1 / -1;
+    padding: 1.5rem 0 0;
+  }
+  .empty-state a {
+    color: #d4af37;
+    font-weight: 500;
+  }
+</style>
+
+<section class="posts-hero">
+  <h1>Discover recent posts</h1>
+  <p>Browse what has been shared recently and open any post to see full details.</p>
+  <a href="{% url 'Post_create' %}" class="btn-add">
+    <i class="fas fa-plus"></i> New Post
+  </a>
+</section>
+
+<section class="posts-grid">
+  {% for post in post_list %}
+    <article class="post-card">
+      <h2 class="post-title">{{ post.title }}</h2>
+      <p class="post-meta">
+        by {{ post.author.username }} • {{ post.date_created|date:"Y-m-d" }}
+      </p>
+      <p class="post-excerpt">
+        {{ post.text|truncatechars:130 }}
+      </p>
+      <div class="post-footer">
+        <a href="{% url 'post_detail' post.pk %}" class="btn-read">Read more →</a>
+      </div>
+    </article>
+  {% empty %}
+    <div class="empty-state">
+      No posts yet. <a href="{% url 'Post_create' %}">Create one now</a>.
+    </div>
+  {% endfor %}
+</section>
+{% endblock %}
+```

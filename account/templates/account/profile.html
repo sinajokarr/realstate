@@ -1,0 +1,94 @@
+{% extends "_base.html" %}
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<style>
+  .profile-shell {
+    max-width: 720px;
+    margin: 0 auto;
+    background: rgba(0,0,0,.25);
+    border: 1px solid rgba(212,175,55,.12);
+    border-radius: 1rem;
+    padding: 2rem 1.6rem 1.6rem;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1.5rem;
+    backdrop-filter: blur(4px);
+  }
+  .profile-avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .6rem;
+  }
+  .profile-avatar img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(212,175,55,.5);
+  }
+  .avatar-placeholder {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 1px dashed rgba(212,175,55,.55);
+    display: grid;
+    place-items: center;
+    color: rgba(245,245,245,.5);
+    font-size: .7rem;
+    text-align: center;
+    padding: .5rem;
+  }
+  .profile-meta h1 {
+    font-size: 1.4rem;
+    margin-bottom: .4rem;
+  }
+  .profile-list {
+    list-style: none;
+    display: grid;
+    gap: .35rem;
+    margin-bottom: 1.1rem;
+    font-size: .8rem;
+  }
+  .profile-list li span {
+    color: rgba(245,245,245,.55);
+  }
+  @media (max-width: 650px) {
+    .profile-shell {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+    .profile-avatar { flex-direction: row; justify-content: flex-start; }
+  }
+</style>
+
+<div class="profile-shell">
+  <div class="profile-avatar">
+    {% if user.avatar %}
+      <img src="{{ user.avatar.url }}" alt="Avatar">
+    {% else %}
+      <div class="avatar-placeholder">No profile picture</div>
+    {% endif %}
+  </div>
+
+  <div class="profile-meta">
+    <h1>My Profile</h1>
+    <ul class="profile-list">
+      <li><span>Username:</span> {{ user.username }}</li>
+      <li><span>Full name:</span> {{ user.get_full_name|default:"-" }}</li>
+      <li><span>Email:</span> {{ user.email|default:"-" }}</li>
+      <li><span>Contact number:</span> {{ user.phone_number|default:"-" }}</li>
+      <li><span>Age:</span> {{ user.age|default:"-" }}</li>
+      <li><span>Agent:</span> {{ user.is_agent|yesno:"Yes,No" }}</li>
+      {% if user.is_agent %}
+        <li><span>Agency name:</span> {{ user.agency_name|default:"No Name" }}</li>
+      {% endif %}
+    </ul>
+
+    <a href="{% url 'profile_edit' %}" class="btn-gold">
+      <i class="fas fa-user-edit"></i> Edit Profile
+    </a>
+  </div>
+</div>
+{% endblock %}
