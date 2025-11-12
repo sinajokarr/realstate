@@ -1,25 +1,75 @@
-🏗️ Project Architecture and Overview
-This project adheres to standard Django design patterns and best coding practices, providing a modular and secure structure. The system's architecture is based on two primary applications: account and blog.
+# ✍️ Django Modular Blog & Secure Account System
+***
 
-1. Architecture and Core Development Principles
-Class-Based Views (CBV): Extensive use of Generic Views (such as ListView, DetailView, CreateView, UpdateView, and DeleteView) to ensure a DRY (Don't Repeat Yourself) codebase and maintain high readability.
+[![Framework: Django 5.x](https://img.shields.io/badge/Framework-Django%205.x-092E20?style=for-the-badge&logo=django&logoColor=white)](https://www.djangoproject.com/)
+[![Architecture: CBVs & Mixins](https://img.shields.io/badge/Architecture-CBVs%20%7C%20Mixins%20%7C%20DRY-007ACC?style=for-the-badge&logo=django&logoColor=white)](https://github.com/sinajokarr)
+[![Focus: User Authentication](https://img.shields.io/badge/Focus-Scalable%20User%20Model%20%26%20Auth-ff9900?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sinajokarr)
+***
 
-Mixin-Driven Authentication: Access management is handled by native Django Mixins, specifically LoginRequiredMixin (to ensure user authentication) and UserPassesTestMixin (to enforce specific permission rules, like post ownership).
+## 🎯 Project Overview: Modular & Secure Django Structure
 
-Scalable User Model: By utilizing settings.AUTH_USER_MODEL, the project supports a Custom User Model (CustomUser) for future flexibility and additional custom fields.
+In proze yek **Blog Platform** kamel ast ke ba estefade az **Django Best Practices** tarrahi shode. Hadaf-e asli, neshun dadan-e chگونگی sakht-e yek system-e modular, amn, va **highly maintainable** ba estefade az **standard Django design patterns** ast.
 
-2. Data Flow and Authorization Diagram
-The main request flow in the project is as follows:
+System az do app-e asli tashkil shode:
+1.  **`account`**: Modiriyate karbaran, Custom User Model, va Authentication.
+2.  **`blog`**: Modiriyate posts, CRUD operations, va content display.
 
-General Requests: Requests related to viewing content (e.g., PostListView and PostDetailView) are handled directly by public Views.
+---
 
-Protected Requests (CRUD):
+## 🏗️ Architecture and Core Development Principles
 
-Requests for creating, editing, or deleting posts (e.g., PostCreateView, PostUpdateView, PostDeleteView) first pass through the LoginRequiredMixin filter. If the user is not logged in, they are redirected to the login page.
+In proze bar roye asli-tarin Mamas'e-haye Tarrahi Code mahkam ast:
 
-Upon successful login, the request proceeds to UserPassesTestMixin. This Mixin executes the test_func method to verify that the current user (self.request.user) is authorized to perform the operation (e.g., confirming that post.author == self.request.user).
+### 1. **Class-Based Views (CBVs) for DRY Code**
+* Estefade-ye gostarde az **Generic Views** (mesle `ListView`, `DetailView`, `CreateView`, `UpdateView`, va `DeleteView`).
+* In kar be natijeh-ye yek codebase **DRY (Don't Repeat Yourself)** va **high readability** mianjamad.
 
-If approved, the operation proceeds; otherwise, access is Forbidden (403).
+### 2. **Mixin-Driven Authentication and Authorization**
+* **Access Management** kamelan ba Mixin-haye built-in-e Django anjam mishavad.
+* `LoginRequiredMixin`: Baraye tamin-e **authentication** karbar dar ghesmathaye mahdud.
+* `UserPassesTestMixin`: Baraye **authorization** (ejazeh) va enforced kardan-e **permission rules** (masalan, ensuring the user is the post author).
 
-3. Modular Structure
-This structure ensures that the authentication logic and the blog content logic are completely decoupled, making each section easy to maintain and extend.
+### 3. **Scalable User Model**
+* Estefade az **Custom User Model (`CustomUser`)** va neshun dadan-e in ba estefade az `settings.AUTH_USER_MODEL`.
+* In structure, **flexibility** baraye ezafe kardan-e field-haye custom va taghyirat-e ayande ro faraham mikone.
+
+---
+
+## 🔒 Security & Data Flow: Authorization Diagram
+
+Data flow-e proze, be vizhe dar ghesmathaye mahdud, ta'min konande-ye amniyat-e karbar (per-user data isolation) ast:
+
+| Request Type | Flow / Mixins Applied | Outcome |
+| :--- | :--- | :--- |
+| **General** (e.g., `PostListView`) | Requests directly handled by public Views. | Public Content is Displayed. |
+| **Protected (CRUD)** (e.g., `PostCreateView`) | 1. Pass through **`LoginRequiredMixin`** | If not authenticated, redirect to Login Page. |
+| **Authorization** (e.g., `PostUpdateView`) | 2. Pass through **`UserPassesTestMixin`** | If `test_func()` fails (e.g., user is not the owner), return **403 Forbidden**. |
+| **Success** | 3. Operation proceeds. | CRUD operation is successfully completed. |
+
+> **Process:** Karbaran baraye anjam dadan-e operation haye **CRUD** (masalan: `PostUpdateView`) bayad avval **authenticated** bashand. Sepas, `UserPassesTestMixin` ba ejra-ye `test_func` ta'yid mikone ke aya karbar-e hal-e hazer (`self.request.user`) **ijazeh** anjam dadan-e in amal ro dare (masalan: `post.author == self.request.user`).
+
+---
+
+## 🛠️ Modular Structure & Next Steps
+
+In structure ta'min konande-ye in ast ke **authentication logic (`account` app)** va **blog content logic (`blog` app)** kamelan az ham jodast, va har ghesmat asan baraye maintain va extend kardan ast.
+
+### 🚀 Getting Started (Rahandazi)
+
+* **Clone Repository:**
+    ```bash
+    git clone [Your Repository URL]
+    cd [your-project-name]
+    ```
+* **Install Dependencies** & **Run Migrations** (Details of these steps should be in your actual `README` for completeness).
+
+### 🙏 Call to Action
+
+<div align="center">
+
+***
+### **I am keenly focused on building robust, clean, and secure systems using Python and Django's best practices.**
+
+**Let's connect to discuss scalable Backend Architecture!**
+***
+</div>
